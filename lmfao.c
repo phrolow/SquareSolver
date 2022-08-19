@@ -42,7 +42,7 @@ int get(char k, float *res) {
 
     while(i < MAXSIZE && inp[i] != '\0') {                                  //проверить, ввёл ли юзверь что-то кроме цифр
         if ((inp[i] < '0' || inp[i] > '9') && inp[i] != '.')
-            return 1;                                                       //ошибка вводa
+            return 1;                                                       //ошибка ввода
         i++;
     }
 
