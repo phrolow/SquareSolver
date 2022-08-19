@@ -35,7 +35,7 @@ main() {
 
 int get(char k, float *res) {
     char inp[MAXSIZE];
-    int i = 0;
+    int i = 0, dot = 0;
 
     printf("Введите коэффициент %c:\n", k);
     scanf("%s", inp);                                                       //собсно ввод
@@ -45,6 +45,11 @@ int get(char k, float *res) {
             return 1;                                                       //ошибка ввода
         i++;
     }
+
+    for(i = 0; i < MAXSIZE && inp[i] != '\0'; i++)
+        if(inp[i] == '.')
+            if(++dot > 1 || i == 0 || inp[i + 1] == '\0')
+                return 1;                                                   //костыль чтоб точку отловить
 
     *res = (float) atof(inp);
 
