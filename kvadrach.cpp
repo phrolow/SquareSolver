@@ -2,56 +2,84 @@
 #include <math.h>
 #include <stdlib.h>
 
-#define EPSILON 0.0001
-#define MAXSIZE 40
+const double EPSILON = 0.0001;
+const int ALL = 3;
 
-int get(char k, float *);
+//на фацлы разбить : ъедер, мейн и функции
+
+double get(char k);
+int compare(double a, double b);
+int linecase(double a, double b, double *x1);
+int sqrcase(double a, double b, double c, double *x1, double *x2);
 
 main() {
-    float a, b, c, d, t;
+    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+    int nRoot = 0;
 
-    if(get('a', &a) || get('b', &b) || get('c', &c)) {
-        printf("Ошибка ввода");
-        return 0;
-    }
+    a = get('a');
+    b = get('b');
+    c = get('c');
 
-
-    if(a > (-EPSILON) && a < EPSILON) {
-        printf("Коэффициент a нулевой либо слишком мал по модулю");
-        return 0;
-    }
-
-    d = b*b - 4*a*c;
-
-    if(d < 0)
-        printf("Вещественных корней нет");
-    else if(d == 0)
-        printf("%f - единственный корень", (-b) / (2 * a));
-    else {
-        t = sqrt(d);
-        printf("Корни: %f и %f", (-b + t) / (2 * a), (-b - t) / (2 * a));
+    nRoot = compare(a, 0) ? linecase(b, c, &x1) : sqrcase(a, b, c, &x1, &x2);
+    switch(nRoot) {
+        case 0:
+            printf("No solutions\n");
+            break;
+        case 1:
+            printf("%lg is only solution\n", x1);
+            break;
+        case 2:
+            printf("Both %lg and %lg are solutions\n", x1, x2);
+            break;
+        case ALL:
+            printf("All numbers are solutions\n");
+            break;
     }
 }
 
-int get(char k, float *res) {
-    char inp[MAXSIZE];
-    int i = 0, dot = 0;
+double get(char k) {
+    double res = NAN;
+    printf("Input %c:\n", k);
+    while(scanf("%lg", &res) == 0)
+        printf("Input error\n");
+    return res;
+}
 
-    printf("Введите коэффициент %c:\n", k);
-    scanf("%s", inp);                                                       //собсно ввод
+int compare(double a, double b) {
+    extern const double EPSILON;
 
-    while(i < MAXSIZE && inp[i] != '\0') {                                  //проверить, ввёл ли юзверь что-то кроме цифр
-        if ((inp[i] < '0' || inp[i] > '9') && inp[i] != '.')
-            return 1;                                                       //ошибка ввода
-        i++;
-    }
-
-    for(i = 0; i < MAXSIZE && inp[i] != '\0'; i++)
-        if(inp[i] == '.')
-            if(++dot > 1 || i == 0 || inp[i + 1] == '\0')
-                return 1;                                                   //костыль чтоб точку отловить
-
-    *res = (float) atof(inp);
+    if(abs(a - b) < EPSILON)
+        return 1;
 
     return 0;
+}
+
+
+
+int linecase(double a, double b, double *x1) {
+    if(compare(a, 0)) {
+        if(compare(b, 0))
+            return ALL;
+        else
+            return 0;
+    } else {
+        *x1 = (-b / a);
+        return 1;
+    }
+}
+
+int sqrcase(double a, double b, double c, double *x1, double *x2) {
+    double d = b*b - 4*a*c;
+
+    if(d < 0)
+        return 0;
+    else if(compare(d, 0)) {
+        *x1 = (-b) / (2 * a);
+        return 1;
+    } else {
+        double sqrtd = sqrt(d);
+        *x1 = (-b - sqrtd) / (2 * a);
+        *x2 = (-b + sqrtd) / (2 * a);
+        return 2;
+    }
 }
