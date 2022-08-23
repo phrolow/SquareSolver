@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1661276229 source:y:\gthb\squaresolver\squaresolver\kvadrach.cpp
+	"kvadrach.h"
+
+1661278269 y:\gthb\squaresolver\squaresolver\kvadrach.h
+	<stdio.h>
+	<math.h>
+	<stdlib.h>
+
+1661278331 source:y:\gthb\squaresolver\squaresolver\main.cpp
+	"kvadrach.h"
+
