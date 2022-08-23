@@ -72,5 +72,12 @@ enum roots sqrcase(double a, double b, double c, double *x1, double *x2) {
         return TWO_ROOTS;
     }
 }
-    //-0 cringe
-    //ass ert
+
+void fixzero(double *a) {
+    #ifdef DEBUG
+    assert(a == NULL);
+    #endif
+
+    if(compare(*a, 0))
+        *a = 0;
+}

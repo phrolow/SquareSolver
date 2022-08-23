@@ -10,6 +10,10 @@ main() {
     c = get('c');
 
     nRoot = compare(a, 0) ? linecase(b, c, &x1) : sqrcase(a, b, c, &x1, &x2);
+
+    fixzero(&x1);
+    fixzero(&x2);
+
     switch(nRoot) {
         case NO_ROOT:
             printf("No solutions\n");
@@ -19,7 +23,7 @@ main() {
             break;
         case TWO_ROOTS:
             printf("Both %lg and %lg are solutions\n", x1, x2);
-            break;                                               //enum
+            break;
         case ALL_ROOTS:
             printf("All numbers are solutions\n");
             break;
