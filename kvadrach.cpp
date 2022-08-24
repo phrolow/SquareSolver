@@ -105,7 +105,7 @@ void test(char *path) {
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN, testx1 = NAN, testx2 = NAN;
     enum Roots nRoot = NO_ROOT;
     FILE *tests = NULL;
-    char *line = NULL;
+    char line[MAXLINE] = {};
     int err = 0, testnum = 0, testnRoot = 0;
 
     tests = fopen(path, "r");

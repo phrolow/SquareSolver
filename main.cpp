@@ -29,7 +29,7 @@ int main() {
     #endif
 
     #ifdef DEBUG
-    test("вЂЄY:\\gthb\\SquareSolver\\test.txt");
+    test("Y:\\gthb\\SquareSolver\\test.txt");
     #endif
 
     return 0;
