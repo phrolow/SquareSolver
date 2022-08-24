@@ -46,7 +46,7 @@ int linecase(double a, double b, double *x1) {
     } else {
         *x1 = (-b / a);
         return 1;
-    }           //возвращать инты
+    }
 }
 
 int sqrcase(double a, double b, double c, double *x1, double *x2) {
@@ -105,17 +105,17 @@ void test(char *path) {
     double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN, testx1 = NAN, testx2 = NAN;
     enum Roots nRoot = NO_ROOT;
     FILE *tests = NULL;
-    char *test = NULL;
+    char *line = NULL;
     int err = 0, testnum = 0, testnRoot = 0;
 
     tests = fopen(path, "r");
 
-    while(fgets(test, 1000, tests) != NULL) {
+    while(fgets(line, MAXLINE, tests) != NULL) {
         a = b = c = x1 = x2 = testx1 = testx2 = NAN;
         testnRoot = 0;
         nRoot = NO_ROOT;
 
-        sscanf(test, "%lg %lg %lg %d %lg %lg", &a, &b, &c, &testnRoot, &testx1, &testx2);
+        sscanf(line, "%lg %lg %lg %d %lg %lg", &a, &b, &c, &testnRoot, &testx1, &testx2);
 
         solve(a, b, c, &nRoot, &x1, &x2);
 
