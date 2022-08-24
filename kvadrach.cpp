@@ -1,4 +1,10 @@
+#include <stdio.h>
+#include <math.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "kvadrach.h"
+
+#define DEBUG
 
 double get(char k) {
     double res = NAN;
@@ -15,6 +21,9 @@ double get(char k) {
 }
 
 int compare(double a, double b) {
+    if(isunordered(a, b))
+        return 1;
+
     #ifdef DEBUG
     assert(a != NAN);
     assert(b != NAN);
@@ -49,6 +58,7 @@ enum roots linecase(double a, double b, double *x1) {
 enum roots sqrcase(double a, double b, double c, double *x1, double *x2) {
     #ifdef DEBUG
     assert(a != NAN);
+    assert(!compare(a, 0));
     assert(b != NAN);
     assert(c != NAN);
     assert(x1 != NULL);
@@ -74,9 +84,8 @@ enum roots sqrcase(double a, double b, double c, double *x1, double *x2) {
 }
 
 void fixzero(double *a) {
-    #ifdef DEBUG
-    assert(a == NULL);
-    #endif
+    if(isnan(*a))
+        return;
 
     if(compare(*a, 0))
         *a = 0;

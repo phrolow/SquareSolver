@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <math.h>
-#include <stdlib.h>
-
 enum roots { NO_ROOT, ONE_ROOT, TWO_ROOTS, ALL_ROOTS };
 
 const double EPSILON = 0.0001;
