@@ -4,19 +4,21 @@
 #include <assert.h>
 #include "kvadrach.h"
 
-#define DEBUG
-
 double get(char k) {
     double res = NAN;
-    char *inp;
+    char *inp = NULL;
     printf("Input %c:\n", k);
-    scanf("%s", inp);
+    //scanf("%s", inp);
 
-    while(sscanf(inp, "%lg", &res) == 0) {
+    /* while(sscanf(inp, "%lg", &res) == 0) {
         printf("Input error\n");
         scanf("%s", inp);
-    }
+    } */
 
+    while(scanf("%lg", &res) == 0) {
+        fflush(stdin);
+        printf("Input error\n");
+    }
     return res;
 }
 
@@ -24,10 +26,10 @@ int compare(double a, double b) {
     if(isunordered(a, b))
         return 1;
 
-    #ifdef DEBUG
-    assert(a != NAN);
-    assert(b != NAN);
-    #endif
+    if(MODE == DEBUG) {
+        assert(a != NAN);
+        assert(b != NAN);
+    }
 
     extern const double EPSILON;
 
@@ -37,12 +39,12 @@ int compare(double a, double b) {
     return 0;
 }
 
-enum roots linecase(double a, double b, double *x1) {
-    #ifdef DEBUG
-    assert(a != NAN);
-    assert(b != NAN);
-    assert(x1 != NULL);
-    #endif
+enum Roots linecase(double a, double b, double *x1) {
+    if(MODE == DEBUG) {
+        assert(a != NAN);
+        assert(b != NAN);
+        assert(x1 != NULL);
+    }
 
     if(compare(a, 0)) {
         if(compare(b, 0))
@@ -55,16 +57,16 @@ enum roots linecase(double a, double b, double *x1) {
     }
 }
 
-enum roots sqrcase(double a, double b, double c, double *x1, double *x2) {
-    #ifdef DEBUG
-    assert(a != NAN);
-    assert(!compare(a, 0));
-    assert(b != NAN);
-    assert(c != NAN);
-    assert(x1 != NULL);
-    assert(x2 != NULL);
-    assert(x1 != x2);
-    #endif
+enum Roots sqrcase(double a, double b, double c, double *x1, double *x2) {
+    if(MODE == DEBUG) {
+        assert(a != NAN);
+        assert(!compare(a, 0));
+        assert(b != NAN);
+        assert(c != NAN);
+        assert(x1 != NULL);
+        assert(x2 != NULL);
+        assert(x1 != x2);
+    }
 
     double d = b*b - 4*a*c;
 
@@ -90,3 +92,20 @@ void fixzero(double *a) {
     if(compare(*a, 0))
         *a = 0;
 }
+
+void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2) {
+    if(MODE == DEBUG) {
+        assert(a != NAN);
+        assert(b != NAN);
+        assert(c != NAN);
+        assert(x1 != NULL);
+        assert(x2 != NULL);
+        assert(x1 != x2);
+    }
+
+    *nRoot = compare(a, 0) ? linecase(b, c, x1) : sqrcase(a, b, c, x1, x2);
+
+    fixzero(x1);
+    fixzero(x2);
+}
+
