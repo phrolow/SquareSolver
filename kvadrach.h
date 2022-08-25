@@ -174,5 +174,3 @@ void testAll(char *path);
 int test(double a, double b, double c, int testnRoots, double testx1, double testx2);
 
 #endif
-
-//точности тест
