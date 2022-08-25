@@ -70,10 +70,7 @@ int sqrcase(double a, double b, double c, double *x1, double *x2) {
 }
 
 void fixzero(double *a) {
-    //assert(a == NULL);
-
-    if(isnan(*a))
-        return;
+    assert(a != NULL);
 
     if(compare(*a, 0))
         *a = 0;
@@ -89,8 +86,12 @@ void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *
 
     *nRoot = (Roots) (compare(a, 0) ? linecase(b, c, x1) : sqrcase(a, b, c, x1, x2));
 
-    fixzero(x1);
-    fixzero(x2);
+    if(!isnan(*x1)) {
+        fixzero(x1);
+    }
+    if(!isnan(*x2)) {
+        fixzero(x2);
+    }
 }
 
 void test(char *path) {
