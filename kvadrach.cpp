@@ -94,6 +94,7 @@ void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *
     }
 }
 
+#ifdef DEBUG
 void test(char *path) {
     assert(path != NULL);
 
@@ -149,3 +150,4 @@ int singletest(double a, double b, double c, int testnRoot, double testx1, doubl
         return 0;
     return 1;
 }
+#endif
