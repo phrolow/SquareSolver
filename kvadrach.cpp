@@ -52,18 +52,18 @@ int sqrcase(double a, double b, double c, double *x1, double *x2) {
     assert(x2 != NULL);
     assert(x1 != x2);
 
-    double d = b*b - 4*a*c;
+    double discr = b*b - 4*a*c;
 
-    if(d < 0)
+    if(discr < 0)
         return NO_ROOT;
-    else if(compare(d, 0)) {
+    else if(compare(discr, 0)) {
         *x1 = (-b) / (2 * a);
         return ONE_ROOT;
     } else {
-        double sqrtd = sqrt(d);
+        double sqrtDiscr = sqrt(discr);
 
-        *x1 = (-b - sqrtd) / (2 * a);
-        *x2 = (-b + sqrtd) / (2 * a);
+        *x1 = (-b - sqrtDiscr) / (2 * a);
+        *x2 = (-b + sqrtDiscr) / (2 * a);
 
         return TWO_ROOTS;
     }
