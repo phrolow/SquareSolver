@@ -1,4 +1,4 @@
-//! @brief  Решение квадратного уравнения
+//! @brief  Square equation solver
 
 #ifndef KVADRACH
 #define KVADRACH
@@ -11,136 +11,134 @@
 #include <assert.h>
 #include <TXLib.h>
 
-//! @brief   Число корней
+//! @brief   Number of roots
 
 enum Roots
-{   NO_ROOT = 0,    //!< Нет корней
-    ONE_ROOT = 1,   //!< Один корень
-    TWO_ROOTS = 2,  //!< Два корня
-    ALL_ROOTS = 3   //!< Все действительные корни
+{   NO_ROOT = 0,    //!< No roots
+    ONE_ROOT = 1,   //!< One root
+    TWO_ROOTS = 2,  //!< Two roots
+    ALL_ROOTS = 3   //!< All real are roots
 };
 
-//! @brief   Очень малое число (для compare)
+//! @brief   Small double for compare
 
 const double EPSILON = 0.0001;
 
-//! @brief   Максимальное число символов в строке
+//! @brief   Max symbols in line
 
 const int MAXLINE = 1000;
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Взятие коэффициента
+//! @brief   Gets coefficient
 //!
-//! @param   k       Вводимый коэффициент
+//! @param   k       Name of coefficient
 //!
-//! @return  Считывает и возвращает коэффициент. При неправильном вводе пытается считать снова
+//! @return  Gets coefficient. If the input is incorrect, it tries to count again
 //!
 //! @usage @code
-//!          double a = get('a');         // Считывает коэффициент a
+//!          double a = get('a');         // Gets a
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 double get(char k);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Сравнение
+//! @brief   Comparison
 //!
-//! @param   a       Первое число
-//! @param   b       Второе число
+//! @param   a       First number
+//! @param   b       Second number
 //!
-//! @return  Возвращает 1, если модуль разности чисел мал или они оба NAN, иначе 0
+//! @return  Returns 1 if the modulus of the difference between numbers is small or they are both NAN, otherwise 0
 //!
 //! @usage @code
-//!          compare(NAN, NAN);           // Возвращает 1
-//!          compare(0.0, 0.0);           // Возвращает 1
-//!          compare(1, 0);               // Возвращает 0
+//!          compare(NAN, NAN);           // Returns 1
+//!          compare(0.0, 0.0);           // Returns 1
+//!          compare(1, 0);               // Returns 0
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 int compare(double a, double b);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Решение линейного уравнения
+//! @brief   Line equation solver
 //!
-//! @param[in]   a       Коэффициент a
-//! @param[in]   b       Коэффициент b
-//! @param[out]  x1      Корень
+//! @param[in]   a       Coefficient a
+//! @param[in]   b       Coefficient b
+//! @param[out]  x1      Root
 //!
-//! @warning Если корня нет, возвращает NAN
+//! @warning If there is no root, returns NAN
 //!
-//! @return  Возвращает число корней. Если корней бесконечное число, возвращает 3
+//! @return  Returns the number of roots. If there are an infinite number of roots, returns 3
 //!
 //! @usage @code
-//!          nRoots = linecase(0, 0, &x1);     // nRoots равно 3, x1 - NAN
+//!          nRoots = linecase(0, 0, &x1);     // nRoots is 3, x1 is NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 int linecase(double a, double b, double *x1);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Решение квадратного уравнения
+//! @brief   Solution of square equation
 //!
-//! @param[in]   a       Коэффициент a
-//! @param[in]   b       Коэффициент b
-//! @param[in]   c       Коэффициент c
-//! @param[out]  x1      Меньший корень
-//! @param[out]  x2      Больший корень
+//! @param[in]   a       Coefficient a
+//! @param[in]   b       Coefficient b
+//! @param[in]   c       Coefficient c
+//! @param[out]  x1      Less root
+//! @param[out]  x2      Bigger root
 //!
-//! @warning a не должно быть 0
+//! @warning a must not be 0
 //!
-//! @warning Если корней нет, x1 и x2 равны NAN. Если корень один, его значение записывается в x1, а в x2 записывается NAN
+//! @warning If there are no roots, x1 and x2 are NAN. If there is only one root, its value is written to x1, and NAN is written to x2
 //!
-//! @return  Возвращает число корней
+//! @return  Returns the number of roots
 //!
 //! @usage @code
-//!          nRoots = sqrcase(0, 0, 5, &x1, &x2);     // nRoots равно 0, x1 и x2 - NAN
+//!          nRoots = sqrcase(0, 0, 5, &x1, &x2);     // nRoots is 0, x1 and x2 are NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 int sqrcase(double a, double b, double c, double *x1, double *x2);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Фикс нуля
+//! @brief   Fix of zero
 //!
-//! @param   a       Указатель на число
+//! @param   a       Number
 //!
-//! @warning a не должно быть NAN
-//!
-//! @return  Если a равно -0, делает его нулевым
+//! @return  If a is -0, makes it zero
 //!
 //! @usage @code
 //!          double a = -0;
-//!          fixzero(&a);
+//!          fixzero(&a);       // now a is 0
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 void fixzero(double *a);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Решение уравнения 2 степени
+//! @brief   Solution of the 2nd degree equation
 //!
-//! @param[in]   a       Коэффициент a
-//! @param[in]   b       Коэффициент b
-//! @param[in]   c       Коэффициент c
-//! @param[out]  nRoot   Число корней
-//! @param[out]  x1      Меньший корень
-//! @param[out]  x2      Больший корень
+//! @param[in]   a       Coefficient a
+//! @param[in]   b       Coefficient b
+//! @param[in]   c       Coefficient c
+//! @param[out]  nRoot   Number of roots
+//! @param[out]  x1      Less root
+//! @param[out]  x2      Bigger root
 //!
-//! @warning a не должно быть 0
+//! @warning a must not be 0
 //!
-//! @warning Если корней нет либо бесконечно, x1 и x2 равны NAN. Если корень один, его значение записывается в x1, а в x2 записывается NAN
+//! @warning If there are no roots or infinitely, x1 and x2 are equal to NAN. If there is only one root, its value is written to x1, and NAN is written to x2
 //!
 //! @usage @code
-//!          solve(1, 2, 1, &nRoot, &x1, &x2);   // nRoot равно ONE_ROOT, x1 равен -1, x2 равен NAN
+//!          solve(1, 2, 1, &nRoot, &x1, &x2);   // nRoot is ONE_ROOT, x1 is -1, x2 is NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
 void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Запуск тестирования
+//! @brief   Start testing
 //!
-//! @param   path       Имя файла с тестами
+//! @param   path       Test file name
 //}----------------------------------------------------------------------------------------------------------------
 
 void test(char *path);
@@ -148,18 +146,18 @@ void test(char *path);
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Тест
 //!
-//! @param   a              Коэффициент a
-//! @param   b              Коэффициент b
-//! @param   c              Коэффициент c
-//! @param   testnRoots     Число корней, которое должно быть при введённых параметрах; 3, если решениями должны быть все числа
-//! @param   testx1         Меньший корень при введённых параметрах
-//! @param   testx2         Больший корень при введённых параметрах
+//! @param   a              Coefficient a
+//! @param   b              Coefficient b
+//! @param   c              Coefficient c
+//! @param   testnRoots     The number of roots that should be with the entered parameters; 3 if the solutions must be all numbers
+//! @param   testx1         Smaller root with the entered parameters
+//! @param   testx2         Bigger root with the entered parameters
 //!
-//! @return  Возвращает 0 при провале теста, 1 в противном случае
+//! @return  Returns 0 if the test fails, 1 otherwise
 //!
 //! @usage @code
-//!          singletest(0, 0, 0, 3, NAN, NAN)         // Возвращает 1
-//!          singletest(0, 0, 0, 1, 0, 0);            // Возвращает 0
+//!          singletest(0, 0, 0, 3, NAN, NAN)         // Returns 1
+//!          singletest(0, 0, 0, 1, 0, 0);            // Returns 0
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 

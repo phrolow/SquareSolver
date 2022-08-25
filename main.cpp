@@ -26,6 +26,9 @@ int main() {
         default:
             break;
     }
+
+    //функция printroot куда закинуть свитч
+
     #endif
 
     #ifdef DEBUG
