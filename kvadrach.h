@@ -7,8 +7,6 @@
 #include <string.h>
 #include <assert.h>
 
-#define DEBUG
-
 enum Roots
 {   NO_ROOT = 0,
     ONE_ROOT = 1,
