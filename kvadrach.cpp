@@ -106,24 +106,46 @@ void test(char *path) {
     tests = fopen(path, "r");
 
     while(fgets(line, MAXLINE, tests) != NULL) {
-        a = b = c = x1 = x2 = testx1 = testx2 = NAN;
+        a = b = c = testx1 = testx2 = NAN;
         testnRoot = 0;
         nRoot = NO_ROOT;
 
         sscanf(line, "%lg %lg %lg %d %lg %lg", &a, &b, &c, &testnRoot, &testx1, &testx2);
 
-        solve(a, b, c, &nRoot, &x1, &x2);
-
         printf("Test #%d. ", ++testnum);
 
-        if(((int) nRoot) != testnRoot || !compare(x1, testx1) || !compare(x1, testx1)) {
+        if(singletest(a, b, c, testnRoot, testx1, testx2)) {
+            txSetConsoleAttr(FOREGROUND_GREEN);
+            printf("SUCCESS");
+        } else {
             err++;
-            printf("FAIL. Got %d %lg %lg instead of %d %lg %lg", (int) nRoot, x1, x2, testnRoot, testx1, testx2);
+
+            txSetConsoleAttr(FOREGROUND_RED);
+            printf("FAIL");
+
+            txSetConsoleAttr();
+            printf(". Got %d %lg %lg instead of %d %lg %lg", (int) nRoot, x1, x2, testnRoot, testx1, testx2);
         }
 
+        txSetConsoleAttr();
         printf("\n");
     }
 
     printf("Error in %d tests", err);
     fclose(tests);
+}
+
+int singletest(double a, double b, double c, int testnRoot, double testx1, double testx2) {
+    assert(a != NAN);
+    assert(b != NAN);
+    assert(c != NAN);
+
+    enum Roots nRoot = NO_ROOT;
+    double x1 = NAN, x2 = NAN;
+
+    solve(a, b, c, &nRoot, &x1, &x2);
+
+    if(nRoot != testnRoot || !compare(x1, testx1) || !compare(x2, testx2))
+        return 0;
+    return 1;
 }
