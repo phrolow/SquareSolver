@@ -11,13 +11,21 @@
 #include <assert.h>
 #include <TXLib.h>
 
+//! @brief   Число корней
+
 enum Roots
-{   NO_ROOT = 0,
-    ONE_ROOT = 1,
-    TWO_ROOTS = 2,
-    ALL_ROOTS = 3 };
+{   NO_ROOT = 0,    //!< Нет корней
+    ONE_ROOT = 1,   //!< Один корень
+    TWO_ROOTS = 2,  //!< Два корня
+    ALL_ROOTS = 3   //!< Все действительные корни
+};
+
+//! @brief   Очень малое число (для compare)
 
 const double EPSILON = 0.0001;
+
+//! @brief   Максимальное число символов в строке
+
 const int MAXLINE = 1000;
 
 //{----------------------------------------------------------------------------------------------------------------
