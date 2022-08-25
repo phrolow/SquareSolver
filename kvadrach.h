@@ -2,7 +2,7 @@
 
 #ifndef KVADRACH
 #define KVADRACH
-//#define DEBUG
+#define TEST
 
 #include <stdio.h>
 #include <math.h>
@@ -36,11 +36,11 @@ const int MAXLINE = 1000;
 //! @return  Gets coefficient. If the input is incorrect, it tries to count again
 //!
 //! @usage @code
-//!          double a = get('a');         // Gets a
+//!          double a = getCoeff('a');         // Gets a
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-double get(char k);
+double getCoeff(char k);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Comparison
@@ -71,11 +71,11 @@ int compare(double a, double b);
 //! @return  Returns the number of roots. If there are an infinite number of roots, returns 3
 //!
 //! @usage @code
-//!          nRoots = linecase(0, 0, &x1);     // nRoots is 3, x1 is NAN
+//!          nRoots = solveLinear(0, 0, &x1);     // nRoots is 3, x1 is NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-int linecase(double a, double b, double *x1);
+int solveLinear(double a, double b, double *x1);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Solution of square equation
@@ -93,11 +93,21 @@ int linecase(double a, double b, double *x1);
 //! @return  Returns the number of roots
 //!
 //! @usage @code
-//!          nRoots = sqrcase(0, 0, 5, &x1, &x2);     // nRoots is 0, x1 and x2 are NAN
+//!          nRoots = solveSquare(0, 0, 5, &x1, &x2);     // nRoots is 0, x1 and x2 are NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-int sqrcase(double a, double b, double c, double *x1, double *x2);
+int solveSquare(double a, double b, double c, double *x1, double *x2);
+
+//{----------------------------------------------------------------------------------------------------------------
+//! @brief   Print solution
+//!
+//! @param   nRoot          Number of roots
+//! @param   x1             Less root
+//! @param   x2             Bigger root
+//}----------------------------------------------------------------------------------------------------------------
+
+void printSolution(enum Roots nRoots, double x1, double x2);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Fix of zero
@@ -108,11 +118,11 @@ int sqrcase(double a, double b, double c, double *x1, double *x2);
 //!
 //! @usage @code
 //!          double a = -0;
-//!          fixzero(&a);       // now a is 0
+//!          fixZero(&a);       // now a is 0
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-void fixzero(double *a);
+void fixZero(double *a);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Solution of the 2nd degree equation
@@ -129,11 +139,11 @@ void fixzero(double *a);
 //! @warning If there are no roots or infinitely, x1 and x2 are equal to NAN. If there is only one root, its value is written to x1, and NAN is written to x2
 //!
 //! @usage @code
-//!          solve(1, 2, 1, &nRoot, &x1, &x2);   // nRoot is ONE_ROOT, x1 is -1, x2 is NAN
+//!          solveEq(1, 2, 1, &nRoot, &x1, &x2);   // nRoot is ONE_ROOT, x1 is -1, x2 is NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2);
+void solveEq(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Start testing
@@ -141,7 +151,7 @@ void solve(double a, double b, double c, enum Roots *nRoot, double *x1, double *
 //! @param   path       Test file name
 //}----------------------------------------------------------------------------------------------------------------
 
-void test(char *path);
+void testAll(char *path);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Тест
@@ -156,11 +166,13 @@ void test(char *path);
 //! @return  Returns 0 if the test fails, 1 otherwise
 //!
 //! @usage @code
-//!          singletest(0, 0, 0, 3, NAN, NAN)         // Returns 1
-//!          singletest(0, 0, 0, 1, 0, 0);            // Returns 0
+//!          test(0, 0, 0, 3, NAN, NAN)         // Returns 1
+//!          test(0, 0, 0, 1, 0, 0);            // Returns 0
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-int singletest(double a, double b, double c, int testnRoots, double testx1, double testx2);
+int test(double a, double b, double c, int testnRoots, double testx1, double testx2);
 
 #endif
+
+//точности тест
