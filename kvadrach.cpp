@@ -1,6 +1,6 @@
 #include "kvadrach.h"
 
-double getCoeff(char k) {   //fix a b c кр и прата while со scanfом как чистить буфер
+double getCoeff(char k) {
     double res = NAN;
 
     printf("Input %c:\n", k);
@@ -10,6 +10,9 @@ double getCoeff(char k) {   //fix a b c кр и прата while со scanfом 
 
         printf("Input error\n");
     }
+
+    fflush(stdin);
+
     return res;
 }
 
@@ -70,12 +73,12 @@ void printSolution(enum Roots nRoot, double x1, double x2) {
             printf("No solutions\n");
             break;
         case ONE_ROOT:
-            assert(isnan(x1));
+            assert(!isnan(x1));
 
             printf("%lg is only solution\n", x1);
             break;
         case TWO_ROOTS:
-            assert(isnan(x1) || isnan(x2));
+            assert(!isnan(x1) || !isnan(x2));
 
             printf("Both %lg and %lg are solutions\n", x1, x2);
             break;

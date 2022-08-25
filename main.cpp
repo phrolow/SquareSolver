@@ -2,7 +2,11 @@
 
 int main() {
     #ifndef TEST
-    double a = NAN, b = NAN, c = NAN, x1 = NAN, x2 = NAN;
+    double  a = NAN,
+            b = NAN,
+            c = NAN,
+            x1 = NAN,
+            x2 = NAN;
     enum Roots nRoot = NO_ROOT;
 
     a = getCoeff('a');
@@ -13,7 +17,6 @@ int main() {
 
     printSolution(nRoot, x1, x2);
 
-    //функция printroot куда закинуть свитч
     //интерактивность
     #endif
 

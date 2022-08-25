@@ -2,7 +2,7 @@
 
 #ifndef KVADRACH
 #define KVADRACH
-#define TEST
+//#define TEST
 
 #include <stdio.h>
 #include <math.h>
