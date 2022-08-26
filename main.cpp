@@ -17,6 +17,7 @@ int main() {
         solveEq(a, b, c, &nRoot, &x1, &x2);
 
         printSolution(nRoot, x1, x2);
+        printf("\n********************\n\n");
     }
     #endif
 
