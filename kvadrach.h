@@ -2,7 +2,7 @@
 
 #ifndef KVADRACH
 #define KVADRACH
-#define TEST
+//#define TEST
 
 #include <stdio.h>
 #include <math.h>
@@ -108,7 +108,6 @@ void fixZero(double *a);
 //! @param[in]   a       Coefficient a
 //! @param[in]   b       Coefficient b
 //! @param[in]   c       Coefficient c
-//! @param[out]  nRoot   Number of roots
 //! @param[out]  x1      Less root
 //! @param[out]  x2      Bigger root
 //!
