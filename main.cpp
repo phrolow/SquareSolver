@@ -14,7 +14,7 @@ int main() {
         b = getCoeff('b');
         c = getCoeff('c');
 
-        solveEq(a, b, c, &nRoot, &x1, &x2);
+        nRoot = (Roots) solveEq(a, b, c, &x1, &x2);
 
         printSolution(nRoot, x1, x2);
         printf("\n********************\n\n");

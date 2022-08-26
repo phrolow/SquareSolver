@@ -42,31 +42,6 @@ int solveLinear(double a, double b, double *x1) {
     }
 }
 
-int solveSquare(double a, double b, double c, double *x1, double *x2) {
-    assert(a != NAN);
-    assert(!compare(a, 0));
-    assert(b != NAN);
-    assert(c != NAN);
-    assert(x1 || x2);
-    assert(x1 != x2);
-
-    double discr = b*b - 4*a*c;
-
-    if(discr < 0) {
-        return NO_ROOT;
-    } else if(compare(discr, 0)) {
-        *x1 = (-b) / (2*a);
-        return ONE_ROOT;
-    } else {
-        double sqrtDiscr = sqrt(discr);
-
-        *x1 = (-b - sqrtDiscr) / (2*a);
-        *x2 = (-b + sqrtDiscr) / (2*a);
-
-        return TWO_ROOTS;
-    }
-}
-
 void printSolution(enum Roots nRoot, double x1, double x2) {
     switch(nRoot) {
         case NO_ROOT:
@@ -97,7 +72,7 @@ void fixZero(double *a) {
         *a = 0;
 }
 
-void solveEq(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2) {
+int solveEq(double a, double b, double c, double *x1, double *x2) {
     assert(a != NAN);
     assert(b != NAN);
     assert(c != NAN);
@@ -105,16 +80,28 @@ void solveEq(double a, double b, double c, enum Roots *nRoot, double *x1, double
     assert(x1 != x2);
 
     if(compare(a, 0))
-        *nRoot = (Roots) solveLinear(b, c, x1);
-    else
-        *nRoot = (Roots) solveSquare(a, b, c, x1, x2);
+        return solveLinear(b, c, x1);
 
-    if(!isnan(*x1)) {
+    double discr = b*b - 4*a*c;
+
+    if(discr < 0) {
+        return NO_ROOT;
+    } else if(compare(discr, 0)) {
+        *x1 = (-b) / (2*a);
         fixZero(x1);
+
+        return ONE_ROOT;
     }
-    if(!isnan(*x2)) {
-        fixZero(x2);
-    }
+
+    double sqrtDiscr = sqrt(discr);
+
+    *x1 = (-b - sqrtDiscr) / (2*a);
+    *x2 = (-b + sqrtDiscr) / (2*a);
+
+    fixZero(x1);
+    fixZero(x2);
+
+    return TWO_ROOTS;
 }
 
 #ifdef TEST
@@ -167,11 +154,9 @@ int test(double a, double b, double c, int testnRoot, double testx1, double test
     enum Roots nRoot = NO_ROOT;
     double x1 = NAN, x2 = NAN;
 
-    solveEq(a, b, c, &nRoot, &x1, &x2);
+    nRoot = (Roots) solveEq(a, b, c, &x1, &x2);
 
-    if(nRoot != testnRoot || !compare(x1, testx1) || !compare(x2, testx2))
-        return 0;
-    return 1;
+    return (nRoot == testnRoot && compare(x1, testx1) && compare(x2, testx2));
 }
 #endif
 

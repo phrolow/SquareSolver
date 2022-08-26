@@ -2,7 +2,7 @@
 
 #ifndef KVADRACH
 #define KVADRACH
-//#define TEST
+#define TEST
 
 #include <stdio.h>
 #include <math.h>
@@ -78,28 +78,6 @@ int compare(double a, double b);
 int solveLinear(double a, double b, double *x1);
 
 //{----------------------------------------------------------------------------------------------------------------
-//! @brief   Solution of square equation
-//!
-//! @param[in]   a       Coefficient a
-//! @param[in]   b       Coefficient b
-//! @param[in]   c       Coefficient c
-//! @param[out]  x1      Less root
-//! @param[out]  x2      Bigger root
-//!
-//! @warning a must not be 0
-//!
-//! @warning If there are no roots, x1 and x2 are NAN. If there is only one root, its value is written to x1, and NAN is written to x2
-//!
-//! @return  Returns the number of roots
-//!
-//! @usage @code
-//!          nRoots = solveSquare(0, 0, 5, &x1, &x2);     // nRoots is 0, x1 and x2 are NAN
-//! @endcode
-//}----------------------------------------------------------------------------------------------------------------
-
-int solveSquare(double a, double b, double c, double *x1, double *x2);
-
-//{----------------------------------------------------------------------------------------------------------------
 //! @brief   Print solution
 //!
 //! @param   nRoot          Number of roots
@@ -138,12 +116,14 @@ void fixZero(double *a);
 //!
 //! @warning If there are no roots or infinitely, x1 and x2 are equal to NAN. If there is only one root, its value is written to x1, and NAN is written to x2
 //!
+//! @return Number of roots
+//!
 //! @usage @code
 //!          solveEq(1, 2, 1, &nRoot, &x1, &x2);   // nRoot is ONE_ROOT, x1 is -1, x2 is NAN
 //! @endcode
 //}----------------------------------------------------------------------------------------------------------------
 
-void solveEq(double a, double b, double c, enum Roots *nRoot, double *x1, double *x2);
+int solveEq(double a, double b, double c, double *x1, double *x2);
 
 //{----------------------------------------------------------------------------------------------------------------
 //! @brief   Start testing
